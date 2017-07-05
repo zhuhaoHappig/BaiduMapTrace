@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:id="@+id/activity_main"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/white">
+
+    <LinearLayout
+            android:id="@+id/layout_top"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true">
+
+        <include layout="@layout/activity_title"></include>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:orientation="vertical">
+
+        <Button
+            android:id="@+id/btn_trace"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="轨迹时时追踪"
+            android:textSize="@dimen/activity_title_size"/>
+
+        <Button
+            android:id="@+id/btn_query"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="历史轨迹查询"
+            android:textSize="@dimen/activity_title_size"/>
+
+    </LinearLayout>
+
+
+</RelativeLayout>

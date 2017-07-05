@@ -1,0 +1,94 @@
+<resources>
+
+    <style name="AppBaseTheme" parent="android:Theme.Light">
+        <!--
+            Theme customizations available in newer API levels can go in
+            res/values-vXX/styles.xml, while customizations related to
+            backward-compatibility can go here.
+        -->
+        <!-- 设置没有标题 -->
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:fitsSystemWindows">true</item>
+        <item name="android:launchMode">singleTask</item>
+        <item name="android:activityOpenExitAnimation">@anim/out_to_left</item>
+        <item name="android:activityCloseEnterAnimation">@anim/in_from_left</item>
+
+    </style>
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat">
+
+
+        <!-- 设置没有标题 -->
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:fitsSystemWindows">true</item>
+
+        <!-- 设置activity切换动画 -->
+        <item name="android:windowAnimationStyle">@style/activityAnimation</item>
+        <item name="android:launchMode">singleTop</item>
+
+    </style>
+
+    <style name="activityAnimation" parent="@android:style/Animation">
+        <item name="android:activityOpenEnterAnimation">@anim/in_from_right</item>
+        <item name="android:activityOpenExitAnimation">@anim/out_to_left</item>
+        <item name="android:activityCloseEnterAnimation">@anim/in_from_left</item>
+        <item name="android:activityCloseExitAnimation">@anim/out_to_right</item>
+    </style>
+
+    <style name="dialog_anim_style">
+        <!-- 指定显示的动画xml -->
+        <item name="android:windowEnterAnimation">@anim/dialog_show</item>
+
+        <!-- 指定消失的动画xml -->
+        <item name="android:windowExitAnimation">@anim/dialog_hidden</item>
+
+    </style>
+
+    <style name="date_picker" parent="android:Theme.Holo.Light.NoActionBar">
+        <item name="android:windowFrame">@null</item>
+        <item name="android:windowIsFloating">true</item>
+        <!-- 设置dialog不全屏 -->
+        <item name="android:windowIsTranslucent">false</item>
+        <!-- 除去title -->
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:backgroundDimEnabled">false</item>
+        <!-- 除去背景色 -->
+        <!--<item name="android:windowBackground">@null</item>-->
+    </style>
+
+    <style name="dialog_layout_style">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginLeft">5dp</item>
+        <item name="android:layout_marginRight">5dp</item>
+        <item name="android:layout_marginBottom">5dp</item>
+        <item name="android:background">@drawable/all_corners_bg</item>
+        <item name="android:gravity">center_horizontal</item>
+        <item name="android:orientation">vertical</item>
+        <item name="android:layout_alignParentBottom">true</item>
+    </style>
+
+    <style name="dialog_split_line_style">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">1dp</item>
+        <item name="android:background">@color/dialog_divide_line</item>
+    </style>
+
+    <style name="Bubble.TextAppearance.Dark" parent="android:TextAppearance.Medium">
+        <item name="android:textSize">14sp</item>
+        <item name="android:textColor">#ff7f7f7f</item>
+    </style>
+
+    <style name="Bubble.TextAppearance.Light" parent="Bubble.TextAppearance.Dark">
+        <item name="android:textColor">#ffeeeeee</item>
+    </style>
+
+    <style name="ClusterIcon.TextAppearance" parent="android:TextAppearance">
+        <item name="android:textColor">#ffeeeeee</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+</resources>

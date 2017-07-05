@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="@dimen/activity_title_height"
+              android:background="@color/layout_title"
+              android:gravity="center"
+              android:orientation="horizontal"
+              android:weightSum="1">
+
+    <LinearLayout
+            android:id="@+id/btn_activity_back"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="0.25"
+            android:gravity="center"
+            android:onClick="onBack">
+
+        <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:background="@mipmap/icon_back"/>
+    </LinearLayout>
+
+
+    <TextView
+            android:id="@+id/tv_activity_title"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.5"
+            android:gravity="center"
+            android:text="@string/app_title"
+            android:textColor="@color/white"
+            android:textSize="@dimen/activity_title_size"/>
+
+    <LinearLayout
+            android:id="@+id/btn_activity_options"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="0.25"
+            android:gravity="center">
+
+        <TextView
+                android:id="@+id/tv_options"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:textColor="@color/white"
+                android:text="查询条件设置"/>
+
+    </LinearLayout>
+
+</LinearLayout>

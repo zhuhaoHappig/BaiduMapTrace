@@ -1,0 +1,239 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:background="@color/white"
+              android:orientation="vertical">
+
+    <LinearLayout
+            android:id="@+id/layout_top"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+        <include layout="@layout/activity_top"></include>
+
+    </LinearLayout>
+
+
+    <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+        <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:divider="@drawable/layout_divider_shape"
+                android:orientation="vertical"
+                android:showDividers="middle">
+
+            <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/item_margin_left"
+                    android:gravity="center|left"
+                    android:orientation="vertical">
+
+                <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:gravity="center|left"
+                        android:text="@string/track_query_option_time"
+                        android:textColor="@color/list_item_title"
+                        android:textSize="14dp"/>
+
+                <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginBottom="10dp"
+                        android:orientation="horizontal"
+                        android:weightSum="1">
+
+                    <Button
+                            android:id="@+id/start_time"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginRight="5dp"
+                            android:layout_weight="0.5"
+                            android:background="@mipmap/bg_btn_cancel"
+                            android:onClick="onStartTime"
+                            android:textColor="@color/layout_title"
+                            android:textSize="10dp"></Button>
+
+
+                    <Button
+                            android:id="@+id/end_time"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="5dp"
+                            android:layout_weight="0.5"
+                            android:background="@mipmap/bg_btn_cancel"
+                            android:onClick="onEndTime"
+                            android:textColor="@color/layout_title"
+                            android:textSize="10dp"></Button>
+
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/item_margin_left"
+                    android:layout_marginBottom="10dp"
+                    android:gravity="center|left"
+                    android:orientation="vertical">
+
+                <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:gravity="center|left"
+                        android:text="@string/track_query_option_process"
+                        android:textColor="@color/list_item_title"
+                        android:textSize="14dp"/>
+
+                <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:weightSum="1">
+
+                    <CheckBox
+                            android:id="@+id/processed"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="0.25"
+                            android:minHeight="25dp"
+                            android:checked="true"
+                            android:text="@string/processed"
+                            android:textColor="@color/list_item_desc"
+                            android:textSize="12dp"
+                            android:button="@drawable/chk_selector"/>
+
+                    <CheckBox
+                            android:id="@+id/denoise"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="0.25"
+                            android:minHeight="25dp"
+                            android:text="@string/denoise"
+                            android:textColor="@color/list_item_desc"
+                            android:textSize="12dp"
+                            android:button="@drawable/chk_selector"/>
+
+                    <CheckBox
+                            android:id="@+id/vacuate"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="0.25"
+                            android:text="@string/vacuate"
+                            android:textColor="@color/list_item_desc"
+                            android:minHeight="25dp"
+                            android:textSize="12dp"
+                            android:button="@drawable/chk_selector"/>
+
+
+                    <CheckBox
+                            android:id="@+id/mapmatch"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="0.25"
+                            android:text="@string/mapmatch"
+                            android:textColor="@color/list_item_desc"
+                            android:minHeight="25dp"
+                            android:textSize="12dp"
+                            android:button="@drawable/chk_selector"/>
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/item_margin_left"
+                    android:focusable="true"
+                    android:focusableInTouchMode="true"
+                    android:gravity="center|left"
+                    android:orientation="vertical">
+
+                <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:gravity="center|left"
+                        android:text="@string/track_query_option_radius_threshold"
+                        android:textColor="@color/list_item_title"
+                        android:textSize="14dp"/>
+
+                <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                    <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:gravity="center|left"
+                            android:text="@string/radius_value"
+                            android:textColor="@color/list_item_desc"/>
+
+                    <EditText
+                            android:id="@+id/radius_threshold"
+                            android:layout_width="100dp"
+                            android:layout_height="40dp"
+                            android:layout_marginRight="5dp"
+                            android:layout_marginTop="1dp"
+                            android:layout_marginBottom="5dp"
+                            android:paddingLeft="5dp"
+                            android:background="@drawable/all_border"
+                            android:hint="@string/radius_hint"
+                            android:inputType="number"/>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingBottom="10dp"
+                    android:paddingTop="10dp"
+                    android:background="@color/light_gray"
+                    android:gravity="center"
+                    android:orientation="horizontal"
+                    android:weightSum="1">
+
+                <Button
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="20dp"
+                        android:layout_marginRight="10dp"
+                        android:layout_weight="0.5"
+                        android:background="@mipmap/bg_btn_cancel"
+                        android:gravity="center"
+                        android:onClick="onCancel"
+                        android:text="@string/all_cancel"
+                        android:textColor="@color/layout_title"
+                        android:textSize="14dp"/>
+
+                <Button
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginRight="20dp"
+                        android:layout_weight="0.5"
+                        android:background="@mipmap/bg_btn_sure"
+                        android:onClick="onFinish"
+                        android:text="@string/all_sure"
+                        android:textColor="@color/white"
+                        android:textSize="14dp"/>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </ScrollView>
+
+</LinearLayout>
+

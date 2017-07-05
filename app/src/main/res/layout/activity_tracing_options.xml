@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:background="@color/white"
+              android:orientation="vertical">
+
+    <LinearLayout
+            android:id="@+id/layout_top"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+        <include layout="@layout/activity_top"></include>
+
+    </LinearLayout>
+
+
+    <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+        <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:divider="@drawable/layout_divider_shape"
+                android:orientation="vertical"
+                android:showDividers="middle">
+
+            <LinearLayout
+                    android:id="@+id/interval"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/item_margin_left"
+                    android:focusable="true"
+                    android:focusableInTouchMode="true"
+                    android:gravity="center|left"
+                    android:orientation="vertical">
+
+                <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:gravity="center|left"
+                        android:text="@string/tracing_option_interval"
+                        android:textColor="@color/list_item_title"
+                        android:textSize="14dp"/>
+
+                <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:weightSum="1">
+
+                    <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="40dp"
+                            android:gravity="center|left"
+                            android:text="@string/gather_interval"
+                            android:textColor="@color/list_item_desc" android:id="@+id/textView2"></TextView>
+
+                    <EditText
+                            android:id="@+id/gather_interval"
+                            android:layout_width="40dp"
+                            android:layout_height="40dp"
+                            android:layout_weight="0.4"
+                            android:layout_marginRight="5dp"
+                            android:layout_marginTop="2dp"
+                            android:layout_marginBottom="5dp"
+                            android:paddingLeft="5dp"
+                            android:background="@drawable/all_border"
+                            android:hint="@string/gather_interval_hint"
+                            android:maxLength="3"
+                            android:inputType="number"/>
+
+                    <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="40dp"
+                            android:layout_marginLeft="5dp"
+                            android:gravity="center|left"
+                            android:text="@string/pack_interval"
+                            android:textColor="@color/list_item_desc" android:id="@+id/textView"></TextView>
+
+                    <EditText
+                            android:id="@+id/pack_interval"
+                            android:layout_width="40dp"
+                            android:layout_height="40dp"
+                            android:layout_weight="0.4"
+                            android:layout_marginRight="5dp"
+                            android:layout_marginTop="2dp"
+                            android:layout_marginBottom="5dp"
+                            android:paddingLeft="5dp"
+                            android:background="@drawable/all_border"
+                            android:hint="@string/pack_interval_hint"
+                            android:maxLength="3"
+                            android:inputType="number"/>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+
+            <LinearLayout
+
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/item_margin_left"
+                    android:gravity="center|left"
+                    android:orientation="vertical">
+
+                <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:gravity="center|left"
+                        android:text="@string/tracing_option_location_mode"
+                        android:textColor="@color/list_item_title"
+                        android:textSize="14dp" android:id="@+id/textView3"/>
+
+                <RadioGroup
+                        android:id="@+id/location_mode"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                    <RadioButton
+                            android:id="@+id/device_sensors"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/device_sensors"
+                            android:textColor="@color/list_item_desc"
+                            android:minHeight="30dp"
+                            android:textSize="12dp"
+                            android:button="@drawable/radio_selector"/>
+
+                    <RadioButton
+                            android:id="@+id/battery_saving"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/battery_saving"
+                            android:textColor="@color/list_item_desc"
+                            android:minHeight="30dp"
+                            android:textSize="12dp"
+                            android:button="@drawable/radio_selector"/>
+
+                    <RadioButton
+                            android:id="@+id/high_accuracy"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:checked="true"
+                            android:text="@string/high_accuracy"
+                            android:textColor="@color/list_item_desc"
+                            android:minHeight="30dp"
+                            android:textSize="12dp"
+                            android:button="@drawable/radio_selector"/>
+
+                </RadioGroup>
+
+            </LinearLayout>
+
+            <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingTop="10dp"
+                    android:paddingBottom="10dp"
+                    android:gravity="center"
+                    android:orientation="horizontal"
+                    android:background="@color/light_gray"
+                    android:weightSum="1">
+
+                <Button
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="20dp"
+                        android:layout_marginRight="10dp"
+                        android:layout_weight="0.5"
+                        android:background="@mipmap/bg_btn_cancel"
+                        android:gravity="center"
+                        android:onClick="onCancel"
+                        android:text="@string/all_cancel"
+                        android:textColor="@color/layout_title"
+                        android:textSize="14dp"/>
+
+                <Button
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginRight="20dp"
+                        android:layout_weight="0.5"
+                        android:background="@mipmap/bg_btn_sure"
+                        android:onClick="onFinish"
+                        android:text="@string/all_sure"
+                        android:textColor="@color/white"
+                        android:textSize="14dp"/>
+
+            </LinearLayout>
+        </LinearLayout>
+
+    </ScrollView>
+
+</LinearLayout>
+

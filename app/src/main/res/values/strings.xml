@@ -1,0 +1,68 @@
+<resources>
+    <string name="app_name">百度鹰眼</string>
+    <string name="app_title">百度鹰眼Android SDK</string>
+
+    <!-- 公共字符串 -->
+    <string name="all_cancel">取消</string>
+    <string name="all_sure">确定</string>
+
+    <!-- Activity标题名称-->
+    <string name="base_title">BaseActivity</string>
+    <string name="login_title">LoginActivity</string>
+    <string name="tracing_title">轨迹追踪</string>
+    <string name="tracing_options_title">追踪设置</string>
+    <string name="track_query_title">轨迹查询</string>
+    <string name="track_query_options_title">查询设置</string>
+
+    <!-- Activity说明 -->
+    <string name="tracing_desc">室内、外高精度连续追踪</string>
+    <string name="track_query_desc">查询被追踪者的历史轨迹</string>
+
+    <!-- TracingOptionActivity 主选项名称 -->
+    <string name="tracing_option_interval">采集、打包频率(单位:秒):</string>
+    <string name="tracing_option_location_mode">定位模式:</string>
+
+    <!-- 定位模式子选项名称 -->
+    <string name="high_accuracy">高精度定位模式，GPS与网络综合定位</string>
+    <string name="battery_saving">低功耗定位模式，仅使用网络定位</string>
+    <string name="device_sensors">仅使用设备(GPS)定位</string>
+
+    <!-- 采集打包子选项 -->
+    <string name="gather_interval">采集频率:</string>
+    <string name="pack_interval">打包频率:</string>
+
+    <!-- 采集打包默认值 -->
+    <string name="gather_interval_hint">5</string>
+    <string name="pack_interval_hint">30</string>
+
+    <!-- TrackQueryOptionsActivity主选项 -->
+    <string name="track_query_option_time">起止时间:</string>
+    <string name="track_query_option_process">纠偏与数据分析:</string>
+    <string name="track_query_option_radius_threshold">精度过滤(单位:米):</string>
+
+    <!-- 起止时间子选项 -->
+    <string name="start_time">开始：</string>
+    <string name="end_time">结束：</string>
+
+    <!-- 精度过滤子选项-->
+    <string name="radius_value">过滤值：</string>
+    <string name="radius_hint">0</string>
+
+    <!-- 纠偏与数据分析子选项 -->
+    <string name="processed">纠偏</string>
+    <string name="denoise">去噪</string>
+    <string name="vacuate">抽稀</string>
+    <string name="mapmatch">绑路</string>
+
+    <!-- 追踪控制子选项 -->
+    <string name="start_trace">开启服务</string>
+    <string name="stop_trace">停止服务</string>
+    <string name="start_gather">开启采集</string>
+    <string name="stop_gather">停止采集</string>
+
+    <string name="no_track_data">未查询到轨迹</string>
+
+    <string name="loc_failed">定位失败</string>
+    <string name="font_type">微软雅黑</string>
+
+</resources>

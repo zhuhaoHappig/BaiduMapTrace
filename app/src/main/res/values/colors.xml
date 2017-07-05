@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#3F51B5</color>
+    <color name="colorPrimaryDark">#303F9F</color>
+    <color name="colorAccent">#FF4081</color>
+    <color name="colorTransparent">#00000000</color>
+
+    <color name="white">#ffffffff</color>
+    <color name="black">#ff000000</color>
+    <color name="blue">#0048b4</color>
+    <color name="yellow">#aa8228</color>
+    <color name="gray">#464646</color>
+    <color name="red">#FF0000</color>
+    <color name="light_gray">#F8F8F8</color>
+
+    <color name="system_bar_bg">#008EEF</color>
+
+    <color name="cancel_bg">#F4F4F4</color>
+    <color name="sure_bg">#0084FE</color>
+
+    <color name="server_fence">#FF0601</color>
+    <color name="local_fence">#2319DC</color>
+
+    <color name="layout_title">#008EEF</color>
+
+    <color name="list_item_title">#333333</color>
+    <color name="list_item_desc">#666666</color>
+    <color name="list_divide_line">#E1E1E1</color>
+    <color name="list_bg">#F6F6F6</color>
+
+    <color name="dialog_divide_line">#bababa</color>
+
+    <color name="dialog_cancel_bg">#dfdcdc</color>
+
+    <color name="dialog_title">#323232</color>
+</resources>

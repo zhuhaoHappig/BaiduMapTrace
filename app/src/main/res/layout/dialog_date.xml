@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:layout_gravity="center_horizontal"
+              android:background="@color/white"
+              android:orientation="vertical">
+
+    <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+        <DatePicker
+                android:id="@+id/date_picker"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:calendarViewShown="false"
+                android:datePickerMode="spinner"/>
+
+        <TimePicker
+                android:id="@+id/time_picker"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:timePickerMode="spinner"
+                android:layout_gravity="center"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/dialog_border"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+        <Button
+                android:id="@+id/btn_cancel"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.5"
+                android:background="@color/cancel_bg"
+                android:gravity="center"
+                android:text="@string/all_cancel"
+                android:textColor="@color/dialog_title"/>
+
+        <Button
+                android:id="@+id/btn_sure"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.5"
+                android:background="@color/sure_bg"
+                android:gravity="center"
+                android:text="@string/all_sure"
+                android:textColor="@color/white"/>
+
+    </LinearLayout>
+
+
+</LinearLayout>
