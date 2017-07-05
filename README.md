@@ -18,4 +18,4 @@
 
 使用百度鹰眼sdk处理后点，时时动态画轨迹效果图
 
-![github](/b.png)
+![github](/c.png)
