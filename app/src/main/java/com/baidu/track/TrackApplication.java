@@ -121,8 +121,8 @@ public class TrackApplication extends Application {
             processOption.setRadiusThreshold(50);
             processOption.setTransportMode(TransportMode.walking);
             processOption.setNeedDenoise(true);
-            processOption.setNeedVacuate(true);
             processOption.setNeedMapMatch(true);
+            request.setProcessOption(processOption);
             mClient.queryLatestPoint(request, trackListener);
         } else {
             mClient.queryRealTimeLoc(locRequest, entityListener);

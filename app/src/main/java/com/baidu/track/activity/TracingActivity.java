@@ -269,8 +269,6 @@ public class TracingActivity extends BaseActivity implements View.OnClickListene
 
     /**
      * 实时定位任务
-     *
-     * @author baidu
      */
     class RealTimeLocRunnable implements Runnable {
 

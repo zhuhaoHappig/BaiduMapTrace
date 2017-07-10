@@ -22,9 +22,6 @@ import android.widget.Toast;
 
 import com.baidu.track.R;
 
-/**
- * Created by baidu on 16/7/21.
- */
 public class ViewUtil {
 
     private Toast mToast = null;
