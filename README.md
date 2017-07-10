@@ -22,7 +22,7 @@ demo中api详细介绍请阅读我的[zhh_happig的简书博客](http://www.jian
 
 使用百度鹰眼sdk处理后点，时时动态画轨迹效果图
 
-![github](/c.png)
+![github](/cb.png)
 
 
 **请注意申请apikey和serviceId**
