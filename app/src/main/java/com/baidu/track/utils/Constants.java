@@ -20,7 +20,7 @@ public final class Constants {
     /**
      * 默认打包周期
      */
-    public static final int DEFAULT_PACK_INTERVAL = 20;
+    public static final int DEFAULT_PACK_INTERVAL = 15;
 
     /**
      * 实时定位间隔(单位:秒)

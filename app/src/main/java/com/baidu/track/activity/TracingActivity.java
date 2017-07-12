@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
+import android.content.SyncStatusObserver;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
@@ -22,6 +23,7 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.baidu.mapapi.common.SysOSUtil;
 import com.baidu.mapapi.map.MapView;
 import com.baidu.mapapi.map.MyLocationData;
 import com.baidu.mapapi.model.LatLng;
@@ -58,7 +60,7 @@ import java.util.List;
  * 轨迹时时追踪
  * Created by zhh
  */
-public class TracingActivity extends BaseActivity implements View.OnClickListener ,SensorEventListener {
+public class TracingActivity extends BaseActivity implements View.OnClickListener, SensorEventListener {
 
     private TrackApplication trackApp = null;
 
@@ -138,7 +140,6 @@ public class TracingActivity extends BaseActivity implements View.OnClickListene
         mapUtil = MapUtil.getInstance();
         mapUtil.init((MapView) findViewById(R.id.tracing_mapView));
         mapUtil.setCenter(mCurrentDirection);//设置地图中心点
-        startRealTimeLoc(Constants.LOC_INTERVAL);//实时定位
         powerManager = (PowerManager) trackApp.getSystemService(Context.POWER_SERVICE);
         mSensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);// 获取传感器管理服务
 
@@ -160,7 +161,7 @@ public class TracingActivity extends BaseActivity implements View.OnClickListene
         double x = sensorEvent.values[SensorManager.DATA_X];
         if (Math.abs(x - lastX) > 1.0) {// 方向改变大于1度才设置，以免地图上的箭头转动过于频繁
             mCurrentDirection = (int) x;
-            if(!CommonUtil.isZeroPoint(CurrentLocation.latitude, CurrentLocation.longitude)){
+            if (!CommonUtil.isZeroPoint(CurrentLocation.latitude, CurrentLocation.longitude)) {
                 mapUtil.updateMapLocation(new LatLng(CurrentLocation.latitude, CurrentLocation.longitude), (float) mCurrentDirection);
             }
         }
@@ -185,13 +186,8 @@ public class TracingActivity extends BaseActivity implements View.OnClickListene
             case R.id.btn_trace:
                 if (trackApp.isTraceStarted) {
                     trackApp.mClient.stopTrace(trackApp.mTrace, traceListener);//停止服务
-                    stopRealTimeLoc();
                 } else {
                     trackApp.mClient.startTrace(trackApp.mTrace, traceListener);//开始服务
-                    if (Constants.DEFAULT_PACK_INTERVAL != packInterval) {//设置间隔
-                        stopRealTimeLoc();
-                        startRealTimeLoc(packInterval);
-                    }
                 }
                 break;
 
@@ -281,7 +277,7 @@ public class TracingActivity extends BaseActivity implements View.OnClickListene
         @Override
         public void run() {
             trackApp.getCurrentLocation(entityListener, trackListener);
-            realTimeHandler.postDelayed(this, interval*1000);
+            realTimeHandler.postDelayed(this, interval * 1000);
         }
     }
 
@@ -324,32 +320,37 @@ public class TracingActivity extends BaseActivity implements View.OnClickListene
             @Override
             public void onLatestPointCallback(LatestPointResponse response) {
                 //经过服务端纠偏后的最新的一个位置点，回调
-                if (StatusCodes.SUCCESS != response.getStatus()) {
-                    return;
+                try {
+                    if (StatusCodes.SUCCESS != response.getStatus()) {
+                        return;
+                    }
+
+                    LatestPoint point = response.getLatestPoint();
+                    if (null == point || CommonUtil.isZeroPoint(point.getLocation().getLatitude(), point.getLocation()
+                            .getLongitude())) {
+                        return;
+                    }
+
+                    LatLng currentLatLng = mapUtil.convertTrace2Map(point.getLocation());
+                    if (null == currentLatLng) {
+                        return;
+                    }
+
+                    //当前经纬度
+                    CurrentLocation.locTime = point.getLocTime();
+                    CurrentLocation.latitude = currentLatLng.latitude;
+                    CurrentLocation.longitude = currentLatLng.longitude;
+
+                    if (trackPoints == null) {
+                        return;
+                    }
+                    trackPoints.add(currentLatLng);
+
+                    mapUtil.drawHistoryTrack(trackPoints, false, mCurrentDirection);//时时动态的画出运动轨迹
+                } catch (Exception x) {
+
                 }
 
-                LatestPoint point = response.getLatestPoint();
-                if (null == point || CommonUtil.isZeroPoint(point.getLocation().getLatitude(), point.getLocation()
-                        .getLongitude())) {
-                    return;
-                }
-
-                LatLng currentLatLng = mapUtil.convertTrace2Map(point.getLocation());
-                if (null == currentLatLng) {
-                    return;
-                }
-
-                //当前经纬度
-                CurrentLocation.locTime = point.getLocTime();
-                CurrentLocation.latitude = currentLatLng.latitude;
-                CurrentLocation.longitude = currentLatLng.longitude;
-
-                if(trackPoints == null){
-                    return;
-                }
-                trackPoints.add(currentLatLng);
-
-                mapUtil.drawHistoryTrack(trackPoints,false,mCurrentDirection);//时时动态的画出运动轨迹
 
             }
         };
@@ -359,23 +360,28 @@ public class TracingActivity extends BaseActivity implements View.OnClickListene
             @Override
             public void onReceiveLocation(TraceLocation location) {
                 //本地LBSTraceClient客户端获取的位置
+                try {
+                    if (StatusCodes.SUCCESS != location.getStatus() || CommonUtil.isZeroPoint(location.getLatitude(),
+                            location.getLongitude())) {
+                        return;
+                    }
+                    LatLng currentLatLng = mapUtil.convertTraceLocation2Map(location);
+                    if (null == currentLatLng) {
+                        return;
+                    }
+                    CurrentLocation.locTime = CommonUtil.toTimeStamp(location.getTime());
+                    CurrentLocation.latitude = currentLatLng.latitude;
+                    CurrentLocation.longitude = currentLatLng.longitude;
 
-                if (StatusCodes.SUCCESS != location.getStatus() || CommonUtil.isZeroPoint(location.getLatitude(),
-                        location.getLongitude())) {
-                    return;
-                }
-                LatLng currentLatLng = mapUtil.convertTraceLocation2Map(location);
-                if (null == currentLatLng) {
-                    return;
-                }
-                CurrentLocation.locTime = CommonUtil.toTimeStamp(location.getTime());
-                CurrentLocation.latitude = currentLatLng.latitude;
-                CurrentLocation.longitude = currentLatLng.longitude;
+                    if (null != mapUtil) {
+                        mapUtil.updateMapLocation(currentLatLng, mCurrentDirection);//显示当前位置
+                        mapUtil.animateMapStatus(currentLatLng);//缩放
+                    }
 
-                if (null != mapUtil) {
-                    mapUtil.updateMapLocation(currentLatLng, mCurrentDirection);//显示当前位置
-                    mapUtil.animateMapStatus(currentLatLng);//缩放
+                } catch (Exception x) {
+
                 }
+
 
             }
 
@@ -429,6 +435,9 @@ public class TracingActivity extends BaseActivity implements View.OnClickListene
                     editor.putBoolean("is_gather_started", true);
                     editor.apply();
                     setGatherBtnStyle();
+
+                    stopRealTimeLoc();
+                    startRealTimeLoc(packInterval);
                 }
                 viewUtil.showToast(TracingActivity.this,
                         String.format("onStartGatherCallback, errorNo:%d, message:%s ", errorNo, message));
@@ -442,10 +451,18 @@ public class TracingActivity extends BaseActivity implements View.OnClickListene
                     editor.remove("is_gather_started");
                     editor.apply();
                     setGatherBtnStyle();
-                    if(trackPoints.size() >= 1){
-                        mapUtil.drawEndPoint(trackPoints.get(trackPoints.size()-1));
-                    }
 
+                    stopRealTimeLoc();
+                    startRealTimeLoc(Constants.LOC_INTERVAL);
+
+                    if (trackPoints.size() >= 1) {
+                        try {
+                            mapUtil.drawEndPoint(trackPoints.get(trackPoints.size() - 1));
+                        } catch (Exception e) {
+
+                        }
+
+                    }
 
                 }
                 viewUtil.showToast(TracingActivity.this,
@@ -505,7 +522,15 @@ public class TracingActivity extends BaseActivity implements View.OnClickListene
     @Override
     protected void onStart() {
         super.onStart();
-        startRealTimeLoc(packInterval);
+        if (trackApp.trackConf.contains("is_trace_started")
+                && trackApp.trackConf.contains("is_gather_started")
+                && trackApp.trackConf.getBoolean("is_trace_started", false)
+                && trackApp.trackConf.getBoolean("is_gather_started", false)) {
+            startRealTimeLoc(packInterval);
+        } else {
+            startRealTimeLoc(Constants.LOC_INTERVAL);
+        }
+
     }
 
     @Override
@@ -513,7 +538,7 @@ public class TracingActivity extends BaseActivity implements View.OnClickListene
         super.onResume();
         mapUtil.onResume();
 
-        mSensorManager.registerListener(this,mSensorManager.getDefaultSensor(Sensor.TYPE_ORIENTATION),SensorManager.SENSOR_DELAY_UI);
+        mSensorManager.registerListener(this, mSensorManager.getDefaultSensor(Sensor.TYPE_ORIENTATION), SensorManager.SENSOR_DELAY_UI);
 
         // 在Android 6.0及以上系统，若定制手机使用到doze模式，请求将应用添加到白名单。
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
@@ -547,7 +572,6 @@ public class TracingActivity extends BaseActivity implements View.OnClickListene
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        mapUtil.clear();
         stopRealTimeLoc();
         trackPoints.clear();
         trackPoints = null;

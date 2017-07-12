@@ -189,37 +189,42 @@ public class TrackQueryActivity extends BaseActivity
         mTrackListener = new OnTrackListener() {
             @Override
             public void onHistoryTrackCallback(HistoryTrackResponse response) {
-                int total = response.getTotal();
-                if (StatusCodes.SUCCESS != response.getStatus()) {
-                    viewUtil.showToast(TrackQueryActivity.this, response.getMessage());
-                } else if (0 == total) {
-                    viewUtil.showToast(TrackQueryActivity.this, getString(R.string.no_track_data));
-                } else {
-                    List<TrackPoint> points = response.getTrackPoints();
-                    if (null != points) {
-                        for (TrackPoint trackPoint : points) {
-                            if (!CommonUtil.isZeroPoint(trackPoint.getLocation().getLatitude(),
-                                    trackPoint.getLocation().getLongitude())) {
-                                trackPoints.add(MapUtil.convertTrace2Map(trackPoint.getLocation()));
+                try {
+
+                    int total = response.getTotal();
+                    if (StatusCodes.SUCCESS != response.getStatus()) {
+                        viewUtil.showToast(TrackQueryActivity.this, response.getMessage());
+                    } else if (0 == total) {
+                        viewUtil.showToast(TrackQueryActivity.this, getString(R.string.no_track_data));
+                    } else {
+                        List<TrackPoint> points = response.getTrackPoints();
+                        if (null != points) {
+                            for (TrackPoint trackPoint : points) {
+                                if (!CommonUtil.isZeroPoint(trackPoint.getLocation().getLatitude(),
+                                        trackPoint.getLocation().getLongitude())) {
+                                    trackPoints.add(MapUtil.convertTrace2Map(trackPoint.getLocation()));
+                                }
                             }
                         }
                     }
-                }
 
-                //查找下一页数据
-                if (total > Constants.PAGE_SIZE * pageIndex) {
-                    historyTrackRequest.setPageIndex(++pageIndex);
-                    queryHistoryTrack();
-                } else {
-                    mapUtil.drawHistoryTrack(trackPoints,true,0);//画轨迹
-                }
+                    //查找下一页数据
+                    if (total > Constants.PAGE_SIZE * pageIndex) {
+                        historyTrackRequest.setPageIndex(++pageIndex);
+                        queryHistoryTrack();
+                    } else {
+                        mapUtil.drawHistoryTrack(trackPoints, true, 0);//画轨迹
+                    }
 
-                queryDistance();// 查询里程
+                    queryDistance();// 查询里程
+                } catch (Exception e) {
+
+                }
             }
 
             @Override
             public void onDistanceCallback(DistanceResponse response) {
-                viewUtil.showToast(TrackQueryActivity.this,"里程："+response.getDistance());
+                viewUtil.showToast(TrackQueryActivity.this, "里程：" + response.getDistance());
                 super.onDistanceCallback(response);
             }
 

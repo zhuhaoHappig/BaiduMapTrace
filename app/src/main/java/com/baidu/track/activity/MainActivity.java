@@ -12,7 +12,6 @@ import android.widget.Button;
 import com.baidu.track.R;
 import com.baidu.track.TrackApplication;
 import com.baidu.track.utils.BitmapUtil;
-import com.baidu.track.utils.CommonUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -86,14 +85,14 @@ public class MainActivity extends BaseActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        CommonUtil.saveCurrentLocation(trackApp);
+
         if (trackApp.trackConf.contains("is_trace_started")
                 && trackApp.trackConf.getBoolean("is_trace_started", true)) {
             // 退出app停止轨迹服务时，不再接收回调，将OnTraceListener置空
             trackApp.mClient.setOnTraceListener(null);
             trackApp.mClient.stopTrace(trackApp.mTrace, null);
+            trackApp.mClient.clear();
         } else {
-            System.out.println(456);
             trackApp.mClient.clear();
         }
         trackApp.isTraceStarted = false;

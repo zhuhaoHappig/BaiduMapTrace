@@ -33,7 +33,7 @@
 
     <!-- 采集打包默认值 -->
     <string name="gather_interval_hint">5</string>
-    <string name="pack_interval_hint">30</string>
+    <string name="pack_interval_hint">15</string>
 
     <!-- TrackQueryOptionsActivity主选项 -->
     <string name="track_query_option_time">起止时间:</string>
