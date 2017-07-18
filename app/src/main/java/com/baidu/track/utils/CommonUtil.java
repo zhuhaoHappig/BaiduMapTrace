@@ -2,16 +2,7 @@ package com.baidu.track.utils;
 
 import android.app.ActivityManager;
 import android.content.Context;
-import android.content.SharedPreferences;
 import android.telephony.TelephonyManager;
-
-import com.baidu.mapapi.model.LatLng;
-import com.baidu.platform.comapi.map.I;
-import com.baidu.track.TrackApplication;
-import com.baidu.track.model.CurrentLocation;
-
-import java.sql.Timestamp;
-import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -73,21 +64,6 @@ public class CommonUtil {
             return 0;
         }
         return date.getTime() / 1000;
-    }
-
-    /**
-     * 保存当前定位点
-     */
-    public static void saveCurrentLocation(TrackApplication trackApp) {
-        SharedPreferences.Editor editor = trackApp.trackConf.edit();
-        StringBuffer locationInfo = new StringBuffer();
-        locationInfo.append(CurrentLocation.locTime);
-        locationInfo.append(";");
-        locationInfo.append(CurrentLocation.latitude);
-        locationInfo.append(";");
-        locationInfo.append(CurrentLocation.longitude);
-        editor.putString(Constants.LAST_LOCATION, locationInfo.toString());
-        editor.apply();
     }
 
     /**

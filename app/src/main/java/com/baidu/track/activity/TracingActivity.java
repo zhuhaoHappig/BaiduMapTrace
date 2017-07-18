@@ -22,6 +22,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.baidu.mapapi.common.SysOSUtil;
 import com.baidu.mapapi.map.MapView;
@@ -117,6 +118,8 @@ public class TracingActivity extends BaseActivity implements View.OnClickListene
      * 轨迹点集合
      */
     private List<LatLng> trackPoints;
+
+    private boolean firstLocate = true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -336,6 +339,12 @@ public class TracingActivity extends BaseActivity implements View.OnClickListene
                         return;
                     }
 
+                    if(firstLocate){
+                        firstLocate = false;
+                        Toast.makeText(TracingActivity.this,"起点获取中，请稍后...",Toast.LENGTH_SHORT).show();
+                        return;
+                    }
+
                     //当前经纬度
                     CurrentLocation.locTime = point.getLocTime();
                     CurrentLocation.latitude = currentLatLng.latitude;
@@ -422,6 +431,7 @@ public class TracingActivity extends BaseActivity implements View.OnClickListene
                     setTraceBtnStyle();
                     setGatherBtnStyle();
                     unregisterPowerReceiver();
+                    firstLocate = true;
                 }
                 viewUtil.showToast(TracingActivity.this,
                         String.format("onStopTraceCallback, errorNo:%d, message:%s ", errorNo, message));
@@ -452,6 +462,7 @@ public class TracingActivity extends BaseActivity implements View.OnClickListene
                     editor.apply();
                     setGatherBtnStyle();
 
+                    firstLocate = true;
                     stopRealTimeLoc();
                     startRealTimeLoc(Constants.LOC_INTERVAL);
 
