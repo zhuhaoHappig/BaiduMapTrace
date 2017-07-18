@@ -200,6 +200,7 @@ public class MapUtil {
             OverlayOptions startOptions = new MarkerOptions().position(points.get(0)).icon(bmStart)
                     .zIndex(9).draggable(true);
             baiduMap.addOverlay(startOptions);
+            updateMapLocation(points.get(0),direction);
             animateMapStatus(points.get(0));
             return;
         }
