@@ -43,7 +43,7 @@
 
         <meta-data
                 android:name="com.baidu.lbsapi.API_KEY"
-                android:value="请输入你申请的apikey"/>
+                android:value="输入你申请的apikey"/>
 
         <activity android:name=".activity.TracingActivity"
                   android:screenOrientation="portrait"/>

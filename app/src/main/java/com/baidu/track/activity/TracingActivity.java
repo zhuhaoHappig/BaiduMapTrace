@@ -293,6 +293,7 @@ public class TracingActivity extends BaseActivity implements View.OnClickListene
         if (null != realTimeHandler && null != realTimeLocRunnable) {
             realTimeHandler.removeCallbacks(realTimeLocRunnable);
         }
+        trackApp.mClient.stopRealTimeLoc();
     }
 
     @Override
